@@ -3,6 +3,7 @@ You mention several issues in your post so let me see if I can answer a couple o
 ![designer](https://github.com/IVSoftware/hangman-00/blob/master/hangman-00/Screenshots/designer.png)
 
 Your `Load` event of your `MainForm` can be simplified by iterating the control tree. 
+
     public MainForm() =>  InitializeComponent();
     protected override void OnLoad(EventArgs e)
     {
