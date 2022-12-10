@@ -33,7 +33,12 @@ The specific `fX` that we'll pass is going to set the text by looking at the con
 		if (control is CheckBox checkbox)
 		{
 			// One way to autogenerate the Text from the Name property.
-			checkbox.Text = checkbox.Name.Replace("checkBox", string.Empty);
+			string sval = checkbox.Name.Replace("checkBox", string.Empty);
+			if(int.TryParse(sval, out int offset))
+            {
+				char c = (char)('A' + (offset - 1));
+				checkbox.Text = c.ToString();
+            }
 			checkbox.Click += onAnyClick;
 		}
 		return true;
@@ -49,7 +54,7 @@ What you can do is take this generic functionality of the `Click` handler and ex
 	{
 		if (sender is CheckBox checkbox)
 		{
-			Text = $"{checkbox.Name} = {checkbox.Checked}";
+			Text = $"{checkbox.Text} = {checkbox.Checked}";
 		}
 	}
 
