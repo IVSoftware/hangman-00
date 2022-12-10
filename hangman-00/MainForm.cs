@@ -12,10 +12,44 @@ namespace hangman_00
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm() =>  InitializeComponent();
+        protected override void OnLoad(EventArgs e)
         {
-            InitializeComponent();
+            base.OnLoad(e);
+            IterateControlTree(null, initCheckBox, null);
+		}
+
+        internal delegate bool FxControlDlgt(Control control, Object args);
+		internal bool IterateControlTree(Control control, FxControlDlgt fX, Object args)
+		{
+			if (control == null) control = this;
+			if (!fX(control, args)) return false;
+			foreach (Control child in control.Controls)
+			{
+				if (!IterateControlTree(child, fX, args))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+        private bool initCheckBox(Control control, object args)
+		{
+			if (control is CheckBox checkbox)
+			{
+				// One way to autogenerate the Text from the Name property.
+				checkbox.Text = checkbox.Name.Replace("checkBox", string.Empty);
+				checkbox.Click += onAnyClick;
+			}
+			return true;
         }
 
+        private void onAnyClick(object sender, EventArgs e)
+		{
+			if (sender is CheckBox checkbox)
+			{
+				Text = $"{checkbox.Name} = {checkbox.Checked}";
+			}
+		}
     }
 }
