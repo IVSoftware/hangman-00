@@ -45,6 +45,14 @@ Here's what the `MainForm' looks like now whan the program is run:
 
 What you can do is take this generic functionality of the `Click` handler and extend it to perform the functionality you need for your game. As a [Minimal Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example) of how one would go about doing this, let's implement it by displaying the new `bool` value on the main form title bar:
 
+    private void onAnyClick(object sender, EventArgs e)
+	{
+		if (sender is CheckBox checkbox)
+		{
+			Text = $"{checkbox.Name} = {checkbox.Checked}";
+		}
+	}
+
 ![title bar text](https://github.com/IVSoftware/hangman-00/blob/master/hangman-00/Screenshots/title-bar-text.png)
 
 
