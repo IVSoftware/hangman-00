@@ -1,8 +1,12 @@
-You mention several issues in your [post](https://stackoverflow.com/q/74751267/5438626) so let me see if I can answer a couple of the main questions. Then, after giving this a try, consider posting new questions one-at-a-time for issues that remain. As I understand it, when you click on buttons your objective is to change the states of `bool` values for your game. The easy way to do that is to use a `Checkbox` that _looks_ like a button by setting its `Appearance` property to `Button`. Here's a view of a `TableLayoutPanel` in the designer window that holds 26 checkboxes.
+Your [question](https://stackoverflow.com/q/74751267/5438626) is "how to let Form load recognize the name of the button in the event handler of 26 buttons". You also mention that when you click on buttons your objective is to change the states of `bool` values for your game. 
+
+One easy way to do the _second_ thing is to use a `Checkbox` that _looks_ like a button by setting its `Appearance` property to `Button`. Whether you end up using buttons or checkboxes that look like buttons, one way to simplify your `Load` event handler is to iterate _all_ the controls in your `MainForm` as shown below. This example will show how to not only recognize the `Name` of the control, but also use that name to automatically generate the characters of the alphabet that you require for the game setup and along the way add an event to handle the button when the user clicks.
+
+Here's a view of a `TableLayoutPanel` in the designer window that holds 26 checkboxes.
 
 ![designer](https://github.com/IVSoftware/hangman-00/blob/master/hangman-00/Screenshots/designer.png)
 
-Your `Load` event of your `MainForm` can be simplified by iterating the control tree. 
+This method will visit each and every control on your `Form`, calling the `initCheckBox` method on each one.
 
     public MainForm() =>  InitializeComponent();
     protected override void OnLoad(EventArgs e)
